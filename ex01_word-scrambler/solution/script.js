@@ -6,7 +6,7 @@ const submitBtn = document.querySelector('#submit-btn');
 const resultContainer = document.querySelector('#result-container');
 // # select wordCount
 const wordCountContainer = document.querySelector('#word-count');
-// # select letterCount
+// # select letterCountK
 const letterCountContainer = document.querySelector('#letter-count');
 
 function getUserInput() {
@@ -98,7 +98,6 @@ function sendData(event){
   request.open('POST', 'http://connect4.pienter.space/api/scramble');
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify(currentText));
-  console.log(currentText);
 }
 
 function handleRequest(event) {
@@ -106,7 +105,7 @@ function handleRequest(event) {
   if (request.readyState === 4) {
     const response = JSON.parse(request.responseText);
     if (request.status >= 200 && request.status < 300) {
-          window.location = 'index.html';
+
     }
   } else if (request.status === 401) {
     alert("Tis kaput");
