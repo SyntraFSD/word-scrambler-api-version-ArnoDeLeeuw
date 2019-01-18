@@ -92,7 +92,7 @@ function updateCounts() {
 }
 
 function sendData(event){
-  const currentText = {text: + (userInput.textContent)};
+  const currentText = {text: (userInput.value)};
   const request = new XMLHttpRequest();
   request.addEventListener('readystatechange', handleRequest);
   request.open('POST', 'http://connect4.pienter.space/api/scramble');
@@ -105,7 +105,8 @@ function handleRequest(event) {
   if (request.readyState === 4) {
     const response = JSON.parse(request.responseText);
     if (request.status >= 200 && request.status < 300) {
-
+      console.log(response);
+      resultContainer.textContent = response.scrambled_text;
     }
   } else if (request.status === 401) {
     alert("Tis kaput");
