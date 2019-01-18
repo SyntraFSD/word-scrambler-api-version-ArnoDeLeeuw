@@ -91,8 +91,30 @@ function updateCounts() {
   updateLetterCount(letterCount);
 }
 
+function sendData(event){
+  const currentText = {text: + (userInput.textContent)};
+  const request = new XMLHttpRequest();
+  request.addEventListener('readystatechange', handleRequest);
+  request.open('POST', 'http://connect4.pienter.space/api/scramble');
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.send(JSON.stringify(currentText));
+  console.log(currentText);
+}
+
+function handleRequest(event) {
+  const request = event.target;
+  if (request.readyState === 4) {
+    const response = JSON.parse(request.responseText);
+    if (request.status >= 200 && request.status < 300) {
+          window.location = 'index.html';
+    }
+  } else if (request.status === 401) {
+    alert("Tis kaput");
+  }
+}
+
 // add click event listener to submitBtn
-submitBtn.addEventListener('click', onClickScramble);
+submitBtn.addEventListener('click', sendData);
 // # add input event listener to userInput for counts
 userInput.addEventListener('input', updateCounts);
 // ## add input event listener to userInput for realTimeScramble
